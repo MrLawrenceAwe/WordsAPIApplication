@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +21,7 @@ import java.util.Map;
 @RestController
 public class WordsAPIController {
 
-    private static final String API_KEY = "41c79b73eamsha08135c9e9ac62dp1d2210jsn104e3f16691a";
+    private static final String API_KEY = getApiKey() ;
     private static final String API_HOST = "wordsapiv1.p.rapidapi.com";
 
     @GetMapping("/")
@@ -48,7 +52,6 @@ public class WordsAPIController {
             Jinjava jinjava = new Jinjava();
             Map<String, Object> context = new HashMap<>();
             String wordInTitleCase = toTitleCase(wordDetails.getWord());
-
             context.put("word", wordInTitleCase);
             context.put("results", wordDetails.getResults());
 
@@ -70,6 +73,15 @@ public class WordsAPIController {
                     .append(" ");
         }
         return stringBuffer.toString().trim();
+    }
+
+    private static String getApiKey() {
+        try (InputStream inputStream = WordsAPIController.class.getResourceAsStream("/API_KEYS");
+             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            return bufferedReader.readLine().trim();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load API key from resource file", e);
+        }
     }
 }
 

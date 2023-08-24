@@ -21,16 +21,4 @@ public class WordDetails {
     public List<String> getAntonyms() {
         return antonyms;
     }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
-    }
-
-    public void setSynonyms(List<String> synonyms) {
-        this.synonyms = synonyms;
-    }
-
-    public void setAntonyms(List<String> antonyms) {
-        this.antonyms = antonyms;
-    }
 }
