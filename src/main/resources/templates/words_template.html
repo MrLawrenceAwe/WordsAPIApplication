@@ -55,7 +55,7 @@
     <tr>
         <td>Images</td>
         <td>
-            <a href="https://www.google.com/search?tbm=isch&q={{ word }}/{{ result.synonyms|join('/') }}: {{ result.definition }}" target="_blank">View Images</a>
+            <a href="https://www.google.com/search?tbm=isch&q={{ word }}{% if result.synonyms|length > 0 %}/{{ result.synonyms[0] }}{% endif %}: {{ result.definition }}" target="_blank">View Images</a>
         </td>
     </tr>
 </table>
