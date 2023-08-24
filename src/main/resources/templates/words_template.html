@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Details</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<h2>{{ word }}</h2>
+
+{% for result in results %}
+<table>
+    <tr>
+        <th>Detail</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Definition</td>
+        <td>{{ result.definition }}</td>
+    </tr>
+    {% if result.synonyms|length > 0 %}
+    <tr>
+        <td>Synonyms</td>
+        <td>
+            {% for synonym in result.synonyms %}
+            <a href="/word-details/{{synonym}}">{{synonym}}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+    {% if result.antonyms|length > 0 %}
+    <tr>
+        <td>Antonyms</td>
+        <td>
+            {% for antonym in result.antonyms %}
+            <a href="/word-details/{{antonym}}">{{antonym}}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+    {% if result.example %}
+    <tr>
+        <td>Example</td>
+        <td>{{ result.example }}</td>
+    </tr>
+    {% endif %}
+</table>
+<br>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+package com.LawrenceAwe.artifact;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hubspot.jinjava.Jinjava;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+public class WordsAPIController {
+
+    private static final String API_KEY = "41c79b73eamsha08135c9e9ac62dp1d2210jsn104e3f16691a";
+    private static final String API_HOST = "wordsapiv1.p.rapidapi.com";
+
+    @GetMapping("/")
+    public String homepage() throws Exception {
+        Jinjava jinjava = new Jinjava();
+        String template = new String(Files.readAllBytes(new ClassPathResource("templates/index.html").getFile().toPath()));
+        return jinjava.render(template, new HashMap<>());
+    }
+
+    @GetMapping("/word-details/{word}")
+    public String getWordDetails(@PathVariable String word) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://wordsapiv1.p.rapidapi.com/words/" + word)
+                .get()
+                .addHeader("X-RapidAPI-Key", API_KEY)
+                .addHeader("X-RapidAPI-Host", API_HOST)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            String responseBody = response.body().string();
+
+
+            ObjectMapper mapper = new ObjectMapper();
+            WordResponse wordDetails = mapper.readValue(responseBody, WordResponse.class);
+
+            Jinjava jinjava = new Jinjava();
+            Map<String, Object> context = new HashMap<>();
+            String capitalizedWord = word.substring(0, 1).toUpperCase() + word.substring(1);
+            context.put("word", capitalizedWord);
+            context.put("results", wordDetails.getResults());
+
+            String template = new String(Files.readAllBytes(new ClassPathResource("templates/words_template.html").getFile().toPath()));
+            return jinjava.render(template, context);
+
+        } catch (Exception e) {
+            return "Failed to fetch data from WordsAPI: " + e.getMessage();
+        }
+    }
+}
+
+
+
