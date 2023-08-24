@@ -52,9 +52,14 @@
         <td>{{ result.example }}</td>
     </tr>
     {% endif %}
+    <tr>
+        <td>Images</td>
+        <td>
+            <a href="https://www.google.com/search?tbm=isch&q={{ word }}/{{ result.synonyms|join('/') }}: {{ result.definition }}" target="_blank">View Images</a>
+        </td>
+    </tr>
 </table>
 <br>
 {% endfor %}
-
 </body>
 </html>
