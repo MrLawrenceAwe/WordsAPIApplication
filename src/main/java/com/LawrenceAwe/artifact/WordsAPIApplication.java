@@ -8,6 +8,5 @@ public class WordsAPIApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WordsAPIApplication.class, args);
-		//test comment 2
 	}
 }
