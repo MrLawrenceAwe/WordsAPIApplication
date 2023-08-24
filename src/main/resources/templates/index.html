@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Words Lookup</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8f9fa;
+    }
+    .centered-form {
+      width: 300px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+<div class="centered-form">
+  <div class="form-group">
+    <input type="text" id="wordInput" class="form-control" placeholder="Enter a word" />
+  </div>
+  <button id="submitBtn" class="btn btn-primary btn-block">Look Up</button>
+</div>
+
+<script>
+  document.getElementById('submitBtn').addEventListener('click', function() {
+    const word = document.getElementById('wordInput').value;
+    if(word.trim() !== "") {
+      window.location.href = `/word-details/${word}`;
+    } else {
+      alert('Please enter a word.');
+    }
+  });
+</script>
+</body>
+</html>
+
