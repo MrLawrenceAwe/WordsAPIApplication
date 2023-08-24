@@ -47,8 +47,9 @@ public class WordsAPIController {
 
             Jinjava jinjava = new Jinjava();
             Map<String, Object> context = new HashMap<>();
-            String capitalizedWord = word.substring(0, 1).toUpperCase() + word.substring(1);
-            context.put("word", capitalizedWord);
+            String wordInTitleCase = toTitleCase(wordDetails.getWord());
+
+            context.put("word", wordInTitleCase);
             context.put("results", wordDetails.getResults());
 
             String template = new String(Files.readAllBytes(new ClassPathResource("templates/words_template.html").getFile().toPath()));
@@ -57,6 +58,18 @@ public class WordsAPIController {
         } catch (Exception e) {
             return "Failed to fetch data from WordsAPI: " + e.getMessage();
         }
+    }
+
+    public static String toTitleCase(String string) {
+        String[] arr = string.split(" ");
+        StringBuffer stringBuffer = new StringBuffer();
+
+        for (String s : arr) {
+            stringBuffer.append(Character.toUpperCase(s.charAt(0)))
+                    .append(s.substring(1).toLowerCase())
+                    .append(" ");
+        }
+        return stringBuffer.toString().trim();
     }
 }
 
