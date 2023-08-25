@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WordResponse {
+public class WordsAPIResponse {
     private String word;
     private List<WordDetails> results;
 
