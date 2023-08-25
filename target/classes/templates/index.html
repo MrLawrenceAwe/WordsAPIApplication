@@ -39,15 +39,9 @@
   <button id="submitBtn" class="btn btn-primary btn-block">Look Up</button>
 </div>
 
+<script src="/lookup.js"></script>
 <script>
-  document.getElementById('submitBtn').addEventListener('click', function() {
-    const word = document.getElementById('wordInput').value;
-    if(word.trim() !== "") {
-      window.location.href = `/word-details/${word}`;
-    } else {
-      alert('Please enter a word.');
-    }
-  });
+  attachLookupEvents('wordInput', 'submitBtn');
 </script>
 </body>
 </html>
