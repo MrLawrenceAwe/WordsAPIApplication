@@ -10,12 +10,12 @@ import java.util.Map;
 public class WordsAPIController {
 
     private final TemplateService templateService;
-    private final WordsApiService wordsApiService;
+    private final WordsAPIService wordsApiService;
     private final ConfigurationService configurationService;
 
     public WordsAPIController() {
         this.templateService = new TemplateService();
-        this.wordsApiService = new WordsApiService();
+        this.wordsApiService = new WordsAPIService();
         this.configurationService = new ConfigurationService();
     }
 
@@ -27,7 +27,7 @@ public class WordsAPIController {
     @GetMapping("/word-details/{word}")
     public String getWordDetails(@PathVariable String word) {
         try {
-            WordResponse wordDetails = wordsApiService.fetchWordDetails(word, configurationService.getApiKey());
+            WordsAPIResponse wordDetails = wordsApiService.fetchWordDetails(word, configurationService.getApiKey());
 
             Map<String, Object> context = new HashMap<>();
             String wordInTitleCase = Utils.toTitleCase(word);
