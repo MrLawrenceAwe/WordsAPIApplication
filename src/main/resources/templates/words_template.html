@@ -74,23 +74,14 @@
     <div class="row justify-content-center mb-5">
         <div class="col-md-8">
             <div class="input-group">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search for another word...">
+                <input type="text" id="wordInput" class="form-control" placeholder="Search for another word...">
                 <div class="input-group-append">
                     <button id="searchBtn" class="btn btn-primary">Search</button>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('searchBtn').addEventListener('click', function() {
-            const word = document.getElementById('searchInput').value;
-            if(word.trim() !== "") {
-                window.location.href = `/word-details/${word}`;
-            } else {
-                alert('Please enter a word.');
-            }
-        });
-    </script>
+
 
     <h2>{{ word }}</h2>
 
@@ -143,5 +134,9 @@
     </table>
     {% endfor %}
 </div>
+<script src="/lookup.js"></script>
+<script>
+    attachLookupEvents('wordInput', 'searchBtn');
+</script>
 </body>
 </html>
