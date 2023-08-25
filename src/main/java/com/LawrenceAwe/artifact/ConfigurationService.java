@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class ConfigurationService {
     public String getApiKey() {
-        try (InputStream inputStream = WordsAPIController.class.getResourceAsStream("/API_KEYS");
+        try (InputStream inputStream = WordsAPIApplicationController.class.getResourceAsStream("/API_KEYS");
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
             return bufferedReader.readLine().trim();
         } catch (IOException e) {

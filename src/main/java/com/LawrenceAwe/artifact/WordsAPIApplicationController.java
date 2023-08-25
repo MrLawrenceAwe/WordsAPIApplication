@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class WordsAPIController {
+public class WordsAPIApplicationController {
 
     private final TemplateService templateService;
-    private final WordsAPIService wordsApiService;
+    private final WordsAPIHandler wordsApiHandler;
     private final ConfigurationService configurationService;
 
-    public WordsAPIController() {
+    public WordsAPIApplicationController() {
         this.templateService = new TemplateService();
-        this.wordsApiService = new WordsAPIService();
+        this.wordsApiHandler = new WordsAPIHandler();
         this.configurationService = new ConfigurationService();
     }
 
@@ -27,7 +27,7 @@ public class WordsAPIController {
     @GetMapping("/word-details/{word}")
     public String getWordDetails(@PathVariable String word) {
         try {
-            WordsAPIResponse wordDetails = wordsApiService.fetchWordDetails(word, configurationService.getApiKey());
+            WordsAPIResponse wordDetails = wordsApiHandler.fetchWordDetails(word, configurationService.getApiKey());
 
             Map<String, Object> context = new HashMap<>();
             String wordInTitleCase = Utils.toTitleCase(word);
