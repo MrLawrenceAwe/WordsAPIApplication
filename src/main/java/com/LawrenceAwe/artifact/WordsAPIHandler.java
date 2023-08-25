@@ -5,12 +5,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WordsAPIService {
+public class WordsAPIHandler {
     private final OkHttpClient client;
     private final ObjectMapper mapper;
     private static final String API_HOST = "wordsapiv1.p.rapidapi.com";
 
-    public WordsAPIService() {
+    public WordsAPIHandler() {
         this.client = new OkHttpClient();
         this.mapper = new ObjectMapper();
     }
