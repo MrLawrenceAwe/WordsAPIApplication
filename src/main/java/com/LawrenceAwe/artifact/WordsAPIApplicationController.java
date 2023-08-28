@@ -11,12 +11,10 @@ public class WordsAPIApplicationController {
 
     private final TemplateService templateService;
     private final WordsAPIHandler wordsApiHandler;
-    private final ConfigurationService configurationService;
 
     public WordsAPIApplicationController() {
         this.templateService = new TemplateService();
         this.wordsApiHandler = new WordsAPIHandler();
-        this.configurationService = new ConfigurationService();
     }
 
     @GetMapping("/")
@@ -27,7 +25,7 @@ public class WordsAPIApplicationController {
     @GetMapping("/word-details/{word}")
     public String getWordDetails(@PathVariable String word) {
         try {
-            WordsAPIResponse wordDetails = wordsApiHandler.fetchWordDetails(word, configurationService.getApiKey());
+            WordsAPIResponse wordDetails = wordsApiHandler.fetchWordDetails(word, System.getenv("RAPID_API_WORDS_API_KEY"));
 
             Map<String, Object> context = new HashMap<>();
             String wordInTitleCase = Utils.toTitleCase(word);
