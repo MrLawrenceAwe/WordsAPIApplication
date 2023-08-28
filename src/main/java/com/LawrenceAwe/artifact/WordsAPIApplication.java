@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WordsAPIApplication {
 
 	public static void main(String[] args) {
+		// Test commment
 		SpringApplication.run(WordsAPIApplication.class, args);
 	}
 }
