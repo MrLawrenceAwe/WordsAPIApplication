@@ -1,23 +1,20 @@
 package com.LawrenceAwe.artifact;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WordsAPIHandler {
+public class WordsAPIClient {
     private final OkHttpClient client;
-    private final ObjectMapper mapper;
     private static final String API_HOST = "wordsapiv1.p.rapidapi.com";
 
-    public WordsAPIHandler() {
+    public WordsAPIClient() {
         this.client = new OkHttpClient();
-        this.mapper = new ObjectMapper();
     }
 
-    public WordsAPIResponse fetchWordDetails(String word, String apiKey) throws Exception {
+    public String fetchWordDetails(String word, String apiKey) throws Exception {
         Request request = new Request.Builder()
                 .url("https://wordsapiv1.p.rapidapi.com/words/" + word)
                 .get()
@@ -26,9 +23,7 @@ public class WordsAPIHandler {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            String responseBody = response.body().string();
-            return mapper.readValue(responseBody, WordsAPIResponse.class);
+            return response.body().string();
         }
     }
 }
-

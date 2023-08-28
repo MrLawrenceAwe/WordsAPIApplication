@@ -11,13 +11,15 @@ import java.util.Map;
 public class WordsAPIApplicationController {
 
     private final TemplateService templateService;
-    private final WordsAPIHandler wordsApiHandler;
+    private final WordsAPIClient wordsAPIClient;
+    private final WordsAPIParser wordsAPIParser;
     private final String apiKey;
 
     // Injecting the dependencies using the constructor
-    public WordsAPIApplicationController(TemplateService templateService, WordsAPIHandler wordsApiHandler, @Value("${RAPID_API_WORDS_API_KEY}") String apiKey) {
+    public WordsAPIApplicationController(TemplateService templateService, WordsAPIClient wordsAPIClient, WordsAPIParser wordsAPIParser ,@Value("${RAPID_API_WORDS_API_KEY}") String apiKey) {
         this.templateService = templateService;
-        this.wordsApiHandler = wordsApiHandler;
+        this.wordsAPIClient = wordsAPIClient;
+        this.wordsAPIParser = wordsAPIParser;
         this.apiKey = apiKey;
     }
 
@@ -29,7 +31,8 @@ public class WordsAPIApplicationController {
     @GetMapping("/word-details/{word}")
     public String wordPage(@PathVariable String word) {
         try {
-            WordsAPIResponse wordDetails = wordsApiHandler.fetchWordDetails(word, apiKey);
+            String response = wordsAPIClient.fetchWordDetails(word, apiKey);
+            WordsAPIResponse wordDetails = wordsAPIParser.parseResponse(response);
 
             Map<String, Object> contextMap = new HashMap<>();
             String wordInTitleCase = Utils.toTitleCase(word);
