@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.stereotype.Service;
 
+@Service
 public class WordsAPIHandler {
     private final OkHttpClient client;
     private final ObjectMapper mapper;

@@ -3,10 +3,12 @@ package com.LawrenceAwe.artifact;
 import com.hubspot.jinjava.Jinjava;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.util.Map;
 
+@Service
 public class TemplateService {
     private final Jinjava jinjava;
     private final ResourceLoader resourceLoader;
@@ -20,9 +22,9 @@ public class TemplateService {
         this.resourceLoader = resourceLoader;
     }
 
-    public String renderTemplate(String templatePath, Map<String, Object> context) throws Exception {
+    public String renderTemplate(String templatePath, Map<String, Object> contextMap) throws Exception {
         String template = resourceLoader.load(templatePath);
-        return jinjava.render(template, context);
+        return jinjava.render(template, contextMap);
     }
 
     // Separate interface for resource loading for better testability
