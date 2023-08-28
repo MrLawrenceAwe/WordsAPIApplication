@@ -2,71 +2,64 @@ package com.LawrenceAwe.artifact;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashMap;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import static org.mockito.BDDMockito.given;
-import static org.assertj.core.api.Assertions.assertThat;
-
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class WordsAPIApplicationControllerTest {
 
+    @Mock
     private WordsAPIApplicationController controller;
 
-    // Mocking our dependencies
-    @MockBean
-    private TemplateService mockTemplateService;
+    @Mock
+    private TemplateService templateService;
 
-    @MockBean
-    private WordsAPIHandler mockWordsApiHandler;
+    @Mock
+    private WordsAPIClient wordsAPIClient;
 
-    private static final String API_KEY = "test-api-key";
+    @Mock
+    private WordsAPIParser wordsAPIParser;
+
+    private final String apiKey = "sampleApiKey";
 
     @BeforeEach
-    public void setup() {
-        controller = new WordsAPIApplicationController(mockTemplateService, mockWordsApiHandler, API_KEY);
+    public void setUp() {
+        controller = new WordsAPIApplicationController(templateService, wordsAPIClient, wordsAPIParser, apiKey);
     }
 
     @Test
-    public void testHomepage() throws Exception {
-        // Given
-        given(mockTemplateService.renderTemplate("templates/index.html", new HashMap<>())).willReturn("homepage");
+     void testHomepage() throws Exception {
+        when(templateService.renderTemplate(anyString(), any())).thenReturn("Homepage HTML");
 
-        // When
-        String response = controller.homepage();
+        String result = controller.renderHomePage();
 
-        // Then
-        assertThat(response).isEqualTo("homepage");
+        assertEquals("Homepage HTML", result);
     }
 
     @Test
     public void testWordPage() throws Exception {
-        String word = "example";
-        WordsAPIResponse mockResponse = new WordsAPIResponse();
-        // populate mockResponse with desired test data
+        String sampleWord = "example";
+        String sampleResponse = "Sample API response";
+        WordsAPIResponse sampleParsedResponse = new WordsAPIResponse(); // Assume you have a way to create a sample object
 
-        given(mockWordsApiHandler.fetchWordDetails(word, API_KEY)).willReturn(mockResponse);
-        given(mockTemplateService.renderTemplate("templates/words_template.html", new HashMap<>())).willReturn("wordPage");
+        when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenReturn(sampleResponse);
+        when(wordsAPIParser.parseResponse(sampleResponse)).thenReturn(sampleParsedResponse);
+        when(templateService.renderTemplate(anyString(), any())).thenReturn("WordPage HTML");
 
-        // When
-        String response = controller.wordPage(word);
+        String result = controller.renderWordPage(sampleWord);
 
-        // Then
-        assertThat(response).isEqualTo("wordPage");
+        assertEquals("WordPage HTML", result);
     }
 
     @Test
-    public void testWordPageException() throws Exception {
-        String word = "example";
+     void testWordPageWhenExceptionThrown() throws Exception {
+        String sampleWord = "example";
+        when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenThrow(new RuntimeException("API Error"));
 
-        given(mockWordsApiHandler.fetchWordDetails(word, API_KEY)).willThrow(new RuntimeException("Test Exception"));
-
-        // When
-        String response = controller.wordPage(word);
-
-        // Then
-        assertThat(response).contains("Failed to fetch data from WordsAPI: Test Exception");
+        assertThrows(WordAPIException.class, () -> controller.renderWordPage(sampleWord));
     }
 }

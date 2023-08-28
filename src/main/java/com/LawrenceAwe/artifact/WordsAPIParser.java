@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 public class WordsAPIParser {
     private final ObjectMapper mapper;
 
-    public WordsAPIParser() {
-        this.mapper = new ObjectMapper();
+    public WordsAPIParser(ObjectMapper mapper) {
+        this.mapper = mapper;
     }
 
     public WordsAPIResponse parseResponse(String responseBody) throws Exception {

@@ -15,7 +15,6 @@ public class WordsAPIApplicationController {
     private final WordsAPIParser wordsAPIParser;
     private final String apiKey;
 
-    // Injecting the dependencies using the constructor
     public WordsAPIApplicationController(TemplateService templateService, WordsAPIClient wordsAPIClient, WordsAPIParser wordsAPIParser ,@Value("${RAPID_API_WORDS_API_KEY}") String apiKey) {
         this.templateService = templateService;
         this.wordsAPIClient = wordsAPIClient;
@@ -24,24 +23,33 @@ public class WordsAPIApplicationController {
     }
 
     @GetMapping("/")
-    public String homepage() throws Exception {
+    public String renderHomePage() throws Exception {
         return templateService.renderTemplate("templates/index.html", new HashMap<>());
     }
 
     @GetMapping("/word-details/{word}")
-    public String wordPage(@PathVariable String word) {
+    public String renderWordPage(@PathVariable String word) throws WordAPIException {
         try {
             String response = wordsAPIClient.fetchWordDetails(word, apiKey);
             WordsAPIResponse wordDetails = wordsAPIParser.parseResponse(response);
-
-            Map<String, Object> contextMap = new HashMap<>();
-            String wordInTitleCase = Utils.toTitleCase(word);
-            contextMap.put("word", wordInTitleCase);
-            contextMap.put("results", wordDetails.getResults());
-
+            Map<String, Object> contextMap = createContextMapForWordPage(word, wordDetails);
             return templateService.renderTemplate("templates/words_template.html", contextMap);
         } catch (Exception e) {
-            return "Failed to fetch data from WordsAPI: " + e.getMessage();
+            throw new WordAPIException("Failed to fetch data from WordsAPI: " + e.getMessage(), e);
         }
+    }
+
+    private Map<String, Object> createContextMapForWordPage(String word, WordsAPIResponse wordDetails) {
+        Map<String, Object> contextMap = new HashMap<>();
+        String wordInTitleCase = Utils.toTitleCase(word);
+        contextMap.put("word", wordInTitleCase);
+        contextMap.put("results", wordDetails.getResults());
+        return contextMap;
+    }
+}
+
+class WordAPIException extends RuntimeException {
+    public WordAPIException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
