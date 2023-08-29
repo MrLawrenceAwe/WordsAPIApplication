@@ -62,13 +62,12 @@ class TemplateServiceTest {
     @Test
     void testDefaultConstructor() {
         TemplateService service = new TemplateService();
-        assertNotNull(service); // This is trivial but ensures the constructor can be called without issues.
+        assertNotNull(service);
     }
 
     @Test
     void testDefaultResourceLoader_loadValidPath() throws Exception {
         TemplateService.DefaultResourceLoader loader = new TemplateService.DefaultResourceLoader();
-        // Assuming you have a test template at "templates/test.txt" for this test
         String templateContent = loader.load("templates/test.txt");
         assertNotNull(templateContent);
         assertFalse(templateContent.isEmpty());
