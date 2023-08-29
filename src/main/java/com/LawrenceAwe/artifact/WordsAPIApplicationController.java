@@ -55,7 +55,7 @@ public class WordsAPIApplicationController {
 
         if (word.length() > 50) word = word.substring(0, 50);
 
-        word = word.replaceAll("[<>\";]", "");
+        word = word.replaceAll("[<>\";/]", "");
 
         return word;
     }
