@@ -55,7 +55,7 @@ public class WordsAPIApplicationController {
 
 <span class="fc bfc" id="L56" title="All 2 branches covered.">        if (word.length() &gt; 50) word = word.substring(0, 50);</span>
 
-<span class="fc" id="L58">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;;]&quot;, &quot;&quot;);</span>
+<span class="fc" id="L58">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;;/]&quot;, &quot;&quot;);</span>
 
 <span class="fc" id="L60">        return word;</span>
     }
