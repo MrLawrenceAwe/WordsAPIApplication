@@ -49,20 +49,15 @@ public class WordsAPIApplicationController {
     }
 
     public static String sanitizeUserWordInput(String word) {
-        if (word == null) {
-            throw new WordAPIException("Word input is null", null);
-        }
+        if (word == null) throw new WordAPIException("Word input is null", null);
 
         word = word.trim();
-        if (word.length() > 50) {
-            word = word.substring(0, 50);
-        }
+
+        if (word.length() > 50) word = word.substring(0, 50);
 
         word = word.replaceAll("[<>\";]", "");
 
-        if (!word.matches("^[a-zA-Z0-9,.' -]+$")) {
-            throw new WordAPIException("Invalid word input", null);
-        }
+        if (!word.matches("^[a-zA-Z0-9,.' -]+$")) throw new WordAPIException("Invalid word input", null);
 
         return word;
     }

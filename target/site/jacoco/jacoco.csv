@@ -1,12 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 WordsAPIProject,com.LawrenceAwe.artifact,Utils,3,45,0,4,1,8,1,3,1,1
 WordsAPIProject,com.LawrenceAwe.artifact,WordAPIException,0,5,0,0,0,2,0,1,0,1
-WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient,0,42,0,0,0,13,0,4,0,4
+WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient,0,40,0,0,0,13,0,4,0,4
+WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient.OkHttpClientConfig,7,0,0,0,2,0,2,0,2,0
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIResponse,11,6,0,0,5,2,3,2,3,2
 WordsAPIProject,com.LawrenceAwe.artifact,WordDetails,24,0,0,0,10,0,7,0,7,0
-WordsAPIProject,com.LawrenceAwe.artifact,TemplateService.DefaultResourceLoader,16,0,0,0,3,0,2,0,2,0
-WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIApplicationController,6,109,1,5,1,27,1,7,0,5
-WordsAPIProject,com.LawrenceAwe.artifact,TemplateService,9,20,0,0,2,6,1,2,1,2
-WordsAPIProject,com.LawrenceAwe.artifact,OkHttpClientConfig,7,0,0,0,2,0,2,0,2,0
+WordsAPIProject,com.LawrenceAwe.artifact,TemplateService.DefaultResourceLoader,0,16,0,0,0,3,0,2,0,2
+WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIApplicationController,6,109,1,5,0,25,1,7,0,5
+WordsAPIProject,com.LawrenceAwe.artifact,TemplateService,0,29,0,0,0,8,0,3,0,3
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIApplication,8,0,0,0,3,0,2,0,2,0
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIParser,0,13,0,0,0,4,0,2,0,2
