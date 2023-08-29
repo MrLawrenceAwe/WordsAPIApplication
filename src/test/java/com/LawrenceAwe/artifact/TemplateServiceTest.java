@@ -48,13 +48,12 @@ public class TemplateServiceTest {
         // Given
         String path = "templatePath";
         Map<String, Object> contextMap = new HashMap<>();
-
         when(mockResourceLoader.load(path)).thenThrow(new RuntimeException("Loading error"));
 
-        // Then
+        // When
         try {
             templateService.renderTemplate(path, contextMap);
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e) { // Then
             assertEquals("Loading error", e.getMessage());
         }
     }
