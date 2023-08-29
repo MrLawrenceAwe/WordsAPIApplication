@@ -58,9 +58,9 @@ public class WordsAPIApplicationController {
             word = word.substring(0, 50);
         }
 
-        word = word.replaceAll("[<>\"';]", "");
+        word = word.replaceAll("[<>\";]", "");
 
-        if (!word.matches("^[a-zA-Z0-9,.'-]+$")) {
+        if (!word.matches("^[a-zA-Z0-9,.' -]+$")) {
             throw new WordAPIException("Invalid word input", null);
         }
 

@@ -1,5 +1,7 @@
 package com.LawrenceAwe.artifact;
 
+import okhttp3.Request;
+
 public class Utils {
     public static String toTitleCase(String string) {
         String[] arr = string.split(" ");

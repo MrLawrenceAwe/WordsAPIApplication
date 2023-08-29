@@ -27,12 +27,10 @@ public class TemplateService {
         return jinjava.render(template, contextMap);
     }
 
-    // Separate interface for resource loading for better testability
     public interface ResourceLoader {
         String load(String path) throws Exception;
     }
 
-    // Default implementation using ClassPathResource
     public static class DefaultResourceLoader implements ResourceLoader {
         @Override
         public String load(String path) throws Exception {
