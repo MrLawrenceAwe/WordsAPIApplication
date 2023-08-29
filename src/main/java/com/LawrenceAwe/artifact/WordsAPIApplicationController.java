@@ -29,6 +29,7 @@ public class WordsAPIApplicationController {
 
     @GetMapping("/word-details/{word}")
     public String renderWordPage(@PathVariable String word) throws WordAPIException {
+        word = sanitizeInput(word);
         try {
             String response = wordsAPIClient.fetchWordDetails(word, apiKey);
             WordsAPIResponse wordDetails = wordsAPIParser.parseResponse(response);
@@ -45,6 +46,25 @@ public class WordsAPIApplicationController {
         contextMap.put("word", wordInTitleCase);
         contextMap.put("results", wordDetails.getResults());
         return contextMap;
+    }
+
+    private String sanitizeInput(String word) {
+        if (word == null) {
+            throw new WordAPIException("Word input is null", null);
+        }
+
+        word = word.trim();
+        if (word.length() > 50) {
+            word = word.substring(0, 50);
+        }
+
+        word = word.replaceAll("[<>\"';]", "");
+
+        if (!word.matches("^[a-zA-Z0-9,.'-]+$")) {
+            throw new WordAPIException("Invalid word input", null);
+        }
+
+        return word;
     }
 }
 
