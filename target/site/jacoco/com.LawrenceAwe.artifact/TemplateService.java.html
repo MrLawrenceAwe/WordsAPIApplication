@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TemplateService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TranslateAPIProject</a> &gt; <a href="index.source.html" class="el_package">com.LawrenceAwe.artifact</a> &gt; <span class="el_source">TemplateService.java</span></div><h1>TemplateService.java</h1><pre class="source lang-java linenums">package com.LawrenceAwe.artifact;
+
+import com.hubspot.jinjava.Jinjava;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+
+import java.nio.file.Files;
+import java.util.Map;
+
+@Service
+public class TemplateService {
+    private final Jinjava jinjava;
+    private final ResourceLoader resourceLoader;
+
+    public TemplateService() {
+<span class="nc" id="L17">        this(new Jinjava(), new DefaultResourceLoader());</span>
+<span class="nc" id="L18">    }</span>
+
+<span class="fc" id="L20">    public TemplateService(Jinjava jinjava, ResourceLoader resourceLoader) {</span>
+<span class="fc" id="L21">        this.jinjava = jinjava;</span>
+<span class="fc" id="L22">        this.resourceLoader = resourceLoader;</span>
+<span class="fc" id="L23">    }</span>
+
+    public String renderTemplate(String templatePath, Map&lt;String, Object&gt; contextMap) throws Exception {
+<span class="fc" id="L26">        String template = resourceLoader.load(templatePath);</span>
+<span class="fc" id="L27">        return jinjava.render(template, contextMap);</span>
+    }
+
+    // Separate interface for resource loading for better testability
+    public interface ResourceLoader {
+        String load(String path) throws Exception;
+    }
+
+    // Default implementation using ClassPathResource
+<span class="nc" id="L36">    public static class DefaultResourceLoader implements ResourceLoader {</span>
+        @Override
+        public String load(String path) throws Exception {
+<span class="nc" id="L39">            Resource resource = new ClassPathResource(path);</span>
+<span class="nc" id="L40">            return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
+        }
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
