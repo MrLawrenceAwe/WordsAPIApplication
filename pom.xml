@@ -11,8 +11,8 @@
 	<groupId>com.LawrenceAwe</groupId>
 	<artifactId>artifact</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>TranslateAPIProject</name>
-	<description>Uses an API to translate text </description>
+	<name>WordsAPIProject</name>
+	<description>Website for looking up words</description>
 	<properties>
 		<java.version>17</java.version>
 
@@ -92,7 +92,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -121,5 +120,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
