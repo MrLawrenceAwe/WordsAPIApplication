@@ -11,7 +11,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class TemplateServiceTest {
+class TemplateServiceTest {
     private Jinjava mockJinjava;
     private TemplateService.ResourceLoader mockResourceLoader;
     private TemplateService templateService;
@@ -24,7 +24,7 @@ public class TemplateServiceTest {
     }
 
     @Test
-    public void testRenderTemplate() throws Exception {
+     void testRenderTemplate() throws Exception {
         // Given
         String path = "templatePath";
         Map<String, Object> contextMap = new HashMap<>();
@@ -44,7 +44,7 @@ public class TemplateServiceTest {
     }
 
     @Test
-    public void testRenderTemplateWithException() throws Exception {
+     void testRenderTemplateWithException() throws Exception {
         // Given
         String path = "templatePath";
         Map<String, Object> contextMap = new HashMap<>();
