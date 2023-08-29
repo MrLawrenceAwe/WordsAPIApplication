@@ -6,6 +6,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -32,8 +35,8 @@ public class WordsAPIApplicationControllerTest {
     }
 
     @Test
-     void testHomepage() throws Exception {
-        when(templateService.renderTemplate(anyString(), any())).thenReturn("Homepage HTML");
+    void testHomepage() throws Exception {
+        when(templateService.renderTemplate("templates/index.html", new HashMap<>())).thenReturn("Homepage HTML");
 
         String result = controller.renderHomePage();
 
@@ -43,12 +46,14 @@ public class WordsAPIApplicationControllerTest {
     @Test
     public void testWordPage() throws Exception {
         String sampleWord = "example";
+        String sanitizedWord = WordsAPIApplicationController.sanitizeUserWordInput(sampleWord);
         String sampleResponse = "Sample API response";
-        WordsAPIResponse sampleParsedResponse = new WordsAPIResponse(); // Assume you have a way to create a sample object
+        WordsAPIResponse sampleParsedResponse = new WordsAPIResponse();
 
-        when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenReturn(sampleResponse);
+        when(wordsAPIClient.fetchWordDetails(sanitizedWord, apiKey)).thenReturn(sampleResponse);
         when(wordsAPIParser.parseResponse(sampleResponse)).thenReturn(sampleParsedResponse);
-        when(templateService.renderTemplate(anyString(), any())).thenReturn("WordPage HTML");
+
+        when(templateService.renderTemplate(anyString(), anyMap())).thenReturn("WordPage HTML");
 
         String result = controller.renderWordPage(sampleWord);
 
@@ -56,10 +61,35 @@ public class WordsAPIApplicationControllerTest {
     }
 
     @Test
-     void testWordPageWhenExceptionThrown() throws Exception {
+    void testWordPageWhenExceptionThrown() throws Exception {
         String sampleWord = "example";
         when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenThrow(new RuntimeException("API Error"));
 
         assertThrows(WordAPIException.class, () -> controller.renderWordPage(sampleWord));
+    }
+
+    @Test
+    void testSanitizeUserWordInput_WithInvalidCharacters() {
+        String sanitizedWord = WordsAPIApplicationController.sanitizeUserWordInput("invalid<>word");
+        assertEquals("invalidword", sanitizedWord);
+    }
+
+    @Test
+    void testSanitizeUserWordInput_WithNull() {
+        assertThrows(WordAPIException.class, () -> WordsAPIApplicationController.sanitizeUserWordInput(null));
+    }
+
+    @Test
+    void testSanitizeUserWordInput_WithOverLengthWord() {
+        String longWord = "a".repeat(60);
+        String result = WordsAPIApplicationController.sanitizeUserWordInput(longWord);
+        assertEquals("a".repeat(50), result);
+    }
+
+    @Test
+    void testSanitizeUserWordInput_ValidWord() {
+        String word = "example";
+        String result = WordsAPIApplicationController.sanitizeUserWordInput(word);
+        assertEquals(word, result);
     }
 }
