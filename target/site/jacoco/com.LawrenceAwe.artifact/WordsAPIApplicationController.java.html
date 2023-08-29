@@ -28,7 +28,7 @@ public class WordsAPIApplicationController {
     }
 
     @GetMapping(&quot;/word-details/{word}&quot;)
-    public String renderWordPage(@PathVariable String word) throws WordAPIException {
+    public String renderWordPage(@PathVariable String word) throws Exception {
 <span class="fc" id="L32">        word = sanitizeUserWordInput(word);</span>
         try {
 <span class="fc" id="L34">            String response = wordsAPIClient.fetchWordDetails(word, apiKey);</span>
@@ -36,7 +36,7 @@ public class WordsAPIApplicationController {
 <span class="fc" id="L36">            Map&lt;String, Object&gt; contextMap = createContextMapForWordPage(word, wordDetails);</span>
 <span class="fc" id="L37">            return templateService.renderTemplate(&quot;templates/words_template.html&quot;, contextMap);</span>
 <span class="fc" id="L38">        } catch (Exception e) {</span>
-<span class="fc" id="L39">            throw new WordAPIException(&quot;Failed to fetch data from WordsAPI: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L39">            throw new Exception(&quot;Failed to fetch data from WordsAPI: &quot; + e.getMessage(), e);</span>
         }
     }
 
@@ -48,8 +48,8 @@ public class WordsAPIApplicationController {
 <span class="fc" id="L48">        return contextMap;</span>
     }
 
-    public static String sanitizeUserWordInput(String word) {
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (word == null) throw new WordAPIException(&quot;Word input is null&quot;, null);</span>
+    public static String sanitizeUserWordInput(String word) throws Exception {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (word == null) throw new Exception(&quot;Word input is null&quot;, null);</span>
 
 <span class="fc" id="L54">        word = word.trim();</span>
 
@@ -57,15 +57,7 @@ public class WordsAPIApplicationController {
 
 <span class="fc" id="L58">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;;]&quot;, &quot;&quot;);</span>
 
-<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!word.matches(&quot;^[a-zA-Z0-9,.' -]+$&quot;)) throw new WordAPIException(&quot;Invalid word input&quot;, null);</span>
-
-<span class="fc" id="L62">        return word;</span>
+<span class="fc" id="L60">        return word;</span>
     }
-}
-
-class WordAPIException extends RuntimeException {
-    public WordAPIException(String message, Throwable cause) {
-<span class="fc" id="L68">        super(message, cause);</span>
-<span class="fc" id="L69">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
