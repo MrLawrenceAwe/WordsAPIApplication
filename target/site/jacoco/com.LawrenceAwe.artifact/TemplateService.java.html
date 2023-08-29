@@ -14,8 +14,8 @@ public class TemplateService {
     private final ResourceLoader resourceLoader;
 
     public TemplateService() {
-<span class="nc" id="L17">        this(new Jinjava(), new DefaultResourceLoader());</span>
-<span class="nc" id="L18">    }</span>
+<span class="fc" id="L17">        this(new Jinjava(), new DefaultResourceLoader());</span>
+<span class="fc" id="L18">    }</span>
 
 <span class="fc" id="L20">    public TemplateService(Jinjava jinjava, ResourceLoader resourceLoader) {</span>
 <span class="fc" id="L21">        this.jinjava = jinjava;</span>
@@ -27,17 +27,15 @@ public class TemplateService {
 <span class="fc" id="L27">        return jinjava.render(template, contextMap);</span>
     }
 
-    // Separate interface for resource loading for better testability
     public interface ResourceLoader {
         String load(String path) throws Exception;
     }
 
-    // Default implementation using ClassPathResource
-<span class="nc" id="L36">    public static class DefaultResourceLoader implements ResourceLoader {</span>
+<span class="fc" id="L34">    public static class DefaultResourceLoader implements ResourceLoader {</span>
         @Override
         public String load(String path) throws Exception {
-<span class="nc" id="L39">            Resource resource = new ClassPathResource(path);</span>
-<span class="nc" id="L40">            return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
+<span class="fc" id="L37">            Resource resource = new ClassPathResource(path);</span>
+<span class="fc" id="L38">            return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
         }
     }
 }

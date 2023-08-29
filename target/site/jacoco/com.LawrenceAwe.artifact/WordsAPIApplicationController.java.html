@@ -49,28 +49,23 @@ public class WordsAPIApplicationController {
     }
 
     public static String sanitizeUserWordInput(String word) {
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (word == null) {</span>
-<span class="fc" id="L53">            throw new WordAPIException(&quot;Word input is null&quot;, null);</span>
-        }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (word == null) throw new WordAPIException(&quot;Word input is null&quot;, null);</span>
 
-<span class="fc" id="L56">        word = word.trim();</span>
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (word.length() &gt; 50) {</span>
-<span class="fc" id="L58">            word = word.substring(0, 50);</span>
-        }
+<span class="fc" id="L54">        word = word.trim();</span>
 
-<span class="fc" id="L61">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;';]&quot;, &quot;&quot;);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (word.length() &gt; 50) word = word.substring(0, 50);</span>
 
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (!word.matches(&quot;^[a-zA-Z0-9,.'-]+$&quot;)) {</span>
-<span class="nc" id="L64">            throw new WordAPIException(&quot;Invalid word input&quot;, null);</span>
-        }
+<span class="fc" id="L58">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;;]&quot;, &quot;&quot;);</span>
 
-<span class="fc" id="L67">        return word;</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!word.matches(&quot;^[a-zA-Z0-9,.' -]+$&quot;)) throw new WordAPIException(&quot;Invalid word input&quot;, null);</span>
+
+<span class="fc" id="L62">        return word;</span>
     }
 }
 
 class WordAPIException extends RuntimeException {
     public WordAPIException(String message, Throwable cause) {
-<span class="fc" id="L73">        super(message, cause);</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L68">        super(message, cause);</span>
+<span class="fc" id="L69">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

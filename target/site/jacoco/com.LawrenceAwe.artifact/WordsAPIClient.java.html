@@ -4,6 +4,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,29 +14,38 @@ public class WordsAPIClient {
     private static final String API_HOST = &quot;wordsapiv1.p.rapidapi.com&quot;;
 
     @Autowired
-<span class="fc" id="L15">    public WordsAPIClient(OkHttpClient client) {</span>
-<span class="fc" id="L16">        this.client = client;</span>
-<span class="fc" id="L17">    }</span>
+<span class="fc" id="L17">    public WordsAPIClient(OkHttpClient client) {</span>
+<span class="fc" id="L18">        this.client = client;</span>
+<span class="fc" id="L19">    }</span>
 
     public String fetchWordDetails(String word, String apiKey) throws Exception {
-<span class="fc" id="L20">        Request request = createRequest(word, apiKey);</span>
+<span class="fc" id="L22">        Request request = createRequest(word, apiKey);</span>
 
-<span class="fc" id="L22">        try (Response response = client.newCall(request).execute()) {</span>
-<span class="fc" id="L23">            return response.body().string();</span>
+<span class="fc" id="L24">        try (Response response = client.newCall(request).execute()) {</span>
+<span class="fc" id="L25">            return response.body().string();</span>
         }
     }
 
-    private Request createRequest(String word, String apiKey) {
-<span class="fc" id="L28">        return new Request.Builder()</span>
-<span class="fc" id="L29">                .url(getWordDetailsURL(word))</span>
-<span class="fc" id="L30">                .get()</span>
-<span class="fc" id="L31">                .addHeader(&quot;X-RapidAPI-Key&quot;, apiKey)</span>
-<span class="fc" id="L32">                .addHeader(&quot;X-RapidAPI-Host&quot;, API_HOST)</span>
-<span class="fc" id="L33">                .build();</span>
+    private static Request createRequest(String word, String apiKey) {
+<span class="fc" id="L30">        return new Request.Builder()</span>
+<span class="fc" id="L31">                .url(getWordDetailsURL(word))</span>
+<span class="fc" id="L32">                .get()</span>
+<span class="fc" id="L33">                .addHeader(&quot;X-RapidAPI-Key&quot;, apiKey)</span>
+<span class="fc" id="L34">                .addHeader(&quot;X-RapidAPI-Host&quot;, API_HOST)</span>
+<span class="fc" id="L35">                .build();</span>
     }
 
-    private String getWordDetailsURL(String word) {
-<span class="fc" id="L37">        return &quot;https://wordsapiv1.p.rapidapi.com/words/&quot; + word;</span>
+    private static String getWordDetailsURL(String word) {
+<span class="fc" id="L39">        return &quot;https://wordsapiv1.p.rapidapi.com/words/&quot; + word;</span>
+    }
+
+    @Configuration
+<span class="nc" id="L43">    public static class OkHttpClientConfig {</span>
+
+        @Bean
+        public OkHttpClient okHttpClient() {
+<span class="nc" id="L47">            return new OkHttpClient();</span>
+        }
     }
 }
 
