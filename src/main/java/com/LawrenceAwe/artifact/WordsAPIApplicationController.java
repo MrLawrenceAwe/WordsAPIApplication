@@ -28,7 +28,7 @@ public class WordsAPIApplicationController {
     }
 
     @GetMapping("/word-details/{word}")
-    public String renderWordPage(@PathVariable String word) throws WordAPIException {
+    public String renderWordPage(@PathVariable String word) throws Exception {
         word = sanitizeUserWordInput(word);
         try {
             String response = wordsAPIClient.fetchWordDetails(word, apiKey);
@@ -36,7 +36,7 @@ public class WordsAPIApplicationController {
             Map<String, Object> contextMap = createContextMapForWordPage(word, wordDetails);
             return templateService.renderTemplate("templates/words_template.html", contextMap);
         } catch (Exception e) {
-            throw new WordAPIException("Failed to fetch data from WordsAPI: " + e.getMessage(), e);
+            throw new Exception("Failed to fetch data from WordsAPI: " + e.getMessage(), e);
         }
     }
 
@@ -48,8 +48,8 @@ public class WordsAPIApplicationController {
         return contextMap;
     }
 
-    public static String sanitizeUserWordInput(String word) {
-        if (word == null) throw new WordAPIException("Word input is null", null);
+    public static String sanitizeUserWordInput(String word) throws Exception {
+        if (word == null) throw new Exception("Word input is null", null);
 
         word = word.trim();
 
@@ -57,14 +57,6 @@ public class WordsAPIApplicationController {
 
         word = word.replaceAll("[<>\";]", "");
 
-        if (!word.matches("^[a-zA-Z0-9,.' -]+$")) throw new WordAPIException("Invalid word input", null);
-
         return word;
-    }
-}
-
-class WordAPIException extends RuntimeException {
-    public WordAPIException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

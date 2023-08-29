@@ -1,5 +1,7 @@
 com/LawrenceAwe/artifact/WordsAPIParserTest.class
 com/LawrenceAwe/artifact/WordsAPIClientTest.class
+hellocucumber/UserWordInputSanitizationStepDefinitions.class
+hellocucumber/RunCucumberTest.class
 com/LawrenceAwe/artifact/TemplateServiceTest.class
 com/LawrenceAwe/artifact/WordsAPIApplicationControllerTest.class
 com/LawrenceAwe/artifact/UtilsTest.class

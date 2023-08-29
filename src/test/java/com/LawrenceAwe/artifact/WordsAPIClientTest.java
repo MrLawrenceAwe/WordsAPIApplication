@@ -1,6 +1,7 @@
 package com.LawrenceAwe.artifact;
 
 import okhttp3.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -65,7 +66,7 @@ public class WordsAPIClientTest {
 
     @Test
     public void testOkHttpClient() {
-        OkHttpClient okHttpClient = client.okHttpClient();
-        assertNotNull(okHttpClient);
+        OkHttpClient okHttpClient = new WordsAPIClient.WordsAPIClientConfig().okHttpClient();
+        Assertions.assertNotNull(okHttpClient);
     }
 }
