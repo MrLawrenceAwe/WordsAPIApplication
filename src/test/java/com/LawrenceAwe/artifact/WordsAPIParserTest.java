@@ -21,12 +21,15 @@ public class WordsAPIParserTest {
 
     @Test
     public void testParseResponse() throws Exception {
+        // Given
         String responseBody = "some fake response body";
         WordsAPIResponse expectedResponse = new WordsAPIResponse();
         when(mockMapper.readValue(responseBody, WordsAPIResponse.class)).thenReturn(expectedResponse);
 
+        // When
         WordsAPIResponse actualResponse = parser.parseResponse(responseBody);
 
+        // Then
         assertEquals(expectedResponse, actualResponse);
     }
 }

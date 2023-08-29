@@ -36,7 +36,7 @@ class WordsAPIClientTest {
 
     @Test
     void fetchWordDetails_returnsCorrectWordDetails() throws Exception {
-        // Arrange
+        // Given
         String word = "example";
         String apiKey = "testApiKey";
         String expectedResponse = "{\"word\":\"example\",\"definition\":\"a representative form or pattern\"}";
@@ -45,10 +45,10 @@ class WordsAPIClientTest {
         when(response.body()).thenReturn(responseBody);
         when(responseBody.string()).thenReturn(expectedResponse);
 
-        // Act
+        // When
         String result = wordsAPIClient.fetchWordDetails(word, apiKey);
 
-        // Assert
+        // Then
         assertEquals(expectedResponse, result);
         verify(client).newCall(any(Request.class));
     }
