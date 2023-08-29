@@ -3,51 +3,69 @@ package com.LawrenceAwe.artifact;
 import okhttp3.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
 
-class WordsAPIClientTest {
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-    @Mock
-    private OkHttpClient client;
+public class WordsAPIClientTest {
 
-    @Mock
-    private Call call;
-
-    @Mock
-    private Response response;
+    private WordsAPIClient client;
 
     @Mock
-    private ResponseBody responseBody;
+    private OkHttpClient mockHttpClient;
 
-    @InjectMocks
-    private WordsAPIClient wordsAPIClient;
+    @Mock
+    private Call mockCall;
+
+    @Mock
+    private Response mockResponse;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
+        client = new WordsAPIClient(mockHttpClient);
     }
 
     @Test
-    void fetchWordDetails_returnsCorrectWordDetails() throws Exception {
-        // Given
-        String word = "example";
-        String apiKey = "testApiKey";
-        String expectedResponse = "{\"word\":\"example\",\"definition\":\"a representative form or pattern\"}";
-        when(client.newCall(any(Request.class))).thenReturn(call);
-        when(call.execute()).thenReturn(response);
-        when(response.body()).thenReturn(responseBody);
-        when(responseBody.string()).thenReturn(expectedResponse);
+    public void testFetchWordDetails_Successful() throws Exception {
+        String expectedResponse = "{\"word\":\"example\"}";
+        when(mockHttpClient.newCall((Request) any())).thenReturn(mockCall);
+        when(mockCall.execute()).thenReturn(mockResponse);
+        when(mockResponse.body()).thenReturn(ResponseBody.create(expectedResponse, MediaType.get("application/json")));
 
-        // When
-        String result = wordsAPIClient.fetchWordDetails(word, apiKey);
+        String result = client.fetchWordDetails("example", "testApiKey");
 
-        // Then
         assertEquals(expectedResponse, result);
-        verify(client).newCall(any(Request.class));
+    }
+
+    @Test
+    public void testFetchWordDetails_ExceptionThrown() throws Exception {
+        when(mockHttpClient.newCall((Request) any())).thenReturn(mockCall);
+        when(mockCall.execute()).thenThrow(new IOException("Failed to fetch word"));
+
+        assertThrows(Exception.class, () -> {
+            client.fetchWordDetails("example", "testApiKey");
+        });
+    }
+
+    @Test
+    public void testGetWordDetailsURL() {
+        String word = "example";
+        String expectedURL = "https://wordsapiv1.p.rapidapi.com/words/example";
+
+        assertEquals(expectedURL, WordsAPIClient.getWordDetailsURL(word));
+    }
+
+    @Test
+    public void testOkHttpClient() {
+        OkHttpClient okHttpClient = client.okHttpClient();
+        assertNotNull(okHttpClient);
     }
 }

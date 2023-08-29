@@ -5,7 +5,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,17 +34,12 @@ public class WordsAPIClient {
                 .build();
     }
 
-    private static String getWordDetailsURL(String word) {
+    static String getWordDetailsURL(String word) {
         return "https://wordsapiv1.p.rapidapi.com/words/" + word;
     }
 
-    @Configuration
-    public static class OkHttpClientConfig {
-
-        @Bean
-        public OkHttpClient okHttpClient() {
-            return new OkHttpClient();
-        }
+    @Bean
+    public OkHttpClient okHttpClient() {
+        return new OkHttpClient();
     }
 }
-
