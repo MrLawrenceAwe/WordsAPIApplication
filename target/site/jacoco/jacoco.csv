@@ -4,7 +4,7 @@ WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient,0,40,0,0,0,13,0,4,0,4
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient.WordsAPIClientConfig,0,7,0,0,0,2,0,2,0,2
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIResponse,11,6,0,0,5,2,3,2,3,2
 WordsAPIProject,com.LawrenceAwe.artifact,WordDetails,24,0,0,0,10,0,7,0,7,0
-WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIApplicationController,0,187,1,13,0,39,1,12,0,6
+WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIApplicationController,0,185,0,16,0,41,0,14,0,6
 WordsAPIProject,com.LawrenceAwe.artifact,TemplateService,0,29,0,0,0,8,0,3,0,3
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIApplication,8,0,0,0,3,0,2,0,2,0
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIParser,0,13,0,0,0,4,0,2,0,2
