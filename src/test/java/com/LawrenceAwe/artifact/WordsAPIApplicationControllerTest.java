@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class WordsAPIApplicationControllerTest {
+class WordsAPIApplicationControllerTest {
 
     @Mock
     private WordsAPIApplicationController controller;
@@ -31,7 +31,7 @@ public class WordsAPIApplicationControllerTest {
     private final String apiKey = "sampleApiKey";
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         controller = new WordsAPIApplicationController(templateService, wordsAPIClient, wordsAPIParser, apiKey);
     }
 
@@ -48,7 +48,7 @@ public class WordsAPIApplicationControllerTest {
     }
 
     @Test
-    public void testWordPage() throws Exception {
+    void testWordPage() throws Exception {
         // Given
         String sampleWord = "example";
         String sanitizedWord = WordsAPIApplicationController.sanitizeUserWordInput(sampleWord);
