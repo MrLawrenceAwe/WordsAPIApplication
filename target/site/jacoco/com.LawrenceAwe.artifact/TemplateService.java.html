@@ -23,26 +23,18 @@ public class TemplateService {
 <span class="fc" id="L23">        this.resourceLoader = resourceLoader;</span>
 <span class="fc" id="L24">    }</span>
 
-    public String renderTemplate(String templatePath, Map&lt;String, Object&gt; contextMap) throws Exception {
+    public String renderTemplate(String templatePath, Map&lt;String, Object&gt; contextMap) throws IOException {
 <span class="fc" id="L27">        String template = resourceLoader.load(templatePath);</span>
 <span class="fc" id="L28">        return jinjava.render(template, contextMap);</span>
     }
 
-
-<span class="fc" id="L32">    public static class ResourceLoader {</span>
+<span class="fc" id="L31">    public static class ResourceLoader {</span>
         public String load(String path) throws IOException, IllegalArgumentException {
             try {
-<span class="fc" id="L35">                Resource resource = new ClassPathResource(path);</span>
-<span class="fc" id="L36">                return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
-<span class="nc" id="L37">            } catch (NullPointerException e) {</span>
-                // Handle NullPointerException (e.g., log an error or throw a more specific exception)
-<span class="nc" id="L39">                throw new IOException(&quot;File object is null&quot;, e);</span>
-<span class="fc" id="L40">            } catch (IOException e) {</span>
-                // Handle IOException (e.g., log an error or propagate the exception)
-<span class="fc" id="L42">                throw e;</span>
-<span class="nc" id="L43">            } catch (IllegalArgumentException e) {</span>
-                // Handle IllegalArgumentException (e.g., log an error or propagate the exception)
-<span class="nc" id="L45">                throw e;</span>
+<span class="fc" id="L34">                Resource resource = new ClassPathResource(path);</span>
+<span class="fc" id="L35">                return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
+<span class="nc" id="L36">            } catch (NullPointerException e) {</span>
+<span class="nc" id="L37">                throw new IOException(&quot;File object is null&quot;, e);</span>
             }
         }
 

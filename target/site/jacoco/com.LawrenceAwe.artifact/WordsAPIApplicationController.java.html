@@ -42,22 +42,40 @@ public class WordsAPIApplicationController {
 
     private Map&lt;String, Object&gt; createContextMapForWordPage(String word, WordsAPIResponse wordDetails) {
 <span class="fc" id="L44">        Map&lt;String, Object&gt; contextMap = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L45">        String wordInTitleCase = Utils.toTitleCase(word);</span>
+<span class="fc" id="L45">        String wordInTitleCase = toTitleCase(word);</span>
 <span class="fc" id="L46">        contextMap.put(&quot;word&quot;, wordInTitleCase);</span>
 <span class="fc" id="L47">        contextMap.put(&quot;results&quot;, wordDetails.getResults());</span>
 <span class="fc" id="L48">        return contextMap;</span>
     }
 
-    public static String sanitizeUserWordInput(String word) throws Exception {
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (word == null) throw new Exception(&quot;Word input is null&quot;, null);</span>
-
-<span class="fc" id="L54">        word = word.trim();</span>
-
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (word.length() &gt; 50) word = word.substring(0, 50);</span>
-
-<span class="fc" id="L58">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;;/]&quot;, &quot;&quot;);</span>
-
-<span class="fc" id="L60">        return word;</span>
+    public static String toTitleCase(String string) {
+<span class="fc" id="L52">        String[] arr = string.split(&quot; &quot;);</span>
+<span class="fc" id="L53">        StringBuilder stringBuilder = new StringBuilder();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        for (String s : arr) {</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (!s.isEmpty()) {</span>
+<span class="fc" id="L56">                stringBuilder.append(Character.toUpperCase(s.charAt(0)))</span>
+<span class="fc" id="L57">                        .append(s.substring(1).toLowerCase())</span>
+<span class="fc" id="L58">                        .append(&quot; &quot;);</span>
+            }
+        }
+<span class="fc" id="L61">        return stringBuilder.toString().trim();</span>
     }
+
+    public static String sanitizeUserWordInput(String word) {
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (word == null) {</span>
+<span class="fc" id="L66">            throw new IllegalArgumentException(&quot;Word input should not be null&quot;);</span>
+        }
+
+<span class="fc" id="L69">        word = word.trim();</span>
+
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (word.length() &gt; 50) {</span>
+<span class="fc" id="L72">            word = word.substring(0, 50);</span>
+        }
+
+<span class="fc" id="L75">        word = word.replaceAll(&quot;[&lt;&gt;\&quot;;/]&quot;, &quot;&quot;);</span>
+
+<span class="fc" id="L77">        return word;</span>
+    }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

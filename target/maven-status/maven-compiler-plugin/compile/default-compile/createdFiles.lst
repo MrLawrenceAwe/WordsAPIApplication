@@ -4,7 +4,6 @@ com/LawrenceAwe/artifact/WordsAPIParser.class
 com/LawrenceAwe/artifact/TemplateService.class
 com/LawrenceAwe/artifact/WordsAPIApplicationController.class
 com/LawrenceAwe/artifact/WordDetails.class
-com/LawrenceAwe/artifact/Utils.class
 com/LawrenceAwe/artifact/WordsAPIClient$WordsAPIClientConfig.class
 com/LawrenceAwe/artifact/WordsAPIApplication.class
 com/LawrenceAwe/artifact/TemplateService$ResourceLoader.class
