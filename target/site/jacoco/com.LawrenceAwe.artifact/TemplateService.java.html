@@ -5,6 +5,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
 
@@ -14,29 +15,37 @@ public class TemplateService {
     private final ResourceLoader resourceLoader;
 
     public TemplateService() {
-<span class="fc" id="L17">        this(new Jinjava(), new DefaultResourceLoader());</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L18">        this(new Jinjava(), new ResourceLoader());</span>
+<span class="fc" id="L19">    }</span>
 
-<span class="fc" id="L20">    public TemplateService(Jinjava jinjava, ResourceLoader resourceLoader) {</span>
-<span class="fc" id="L21">        this.jinjava = jinjava;</span>
-<span class="fc" id="L22">        this.resourceLoader = resourceLoader;</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc" id="L21">    public TemplateService(Jinjava jinjava, ResourceLoader resourceLoader) {</span>
+<span class="fc" id="L22">        this.jinjava = jinjava;</span>
+<span class="fc" id="L23">        this.resourceLoader = resourceLoader;</span>
+<span class="fc" id="L24">    }</span>
 
     public String renderTemplate(String templatePath, Map&lt;String, Object&gt; contextMap) throws Exception {
-<span class="fc" id="L26">        String template = resourceLoader.load(templatePath);</span>
-<span class="fc" id="L27">        return jinjava.render(template, contextMap);</span>
+<span class="fc" id="L27">        String template = resourceLoader.load(templatePath);</span>
+<span class="fc" id="L28">        return jinjava.render(template, contextMap);</span>
     }
 
-    public interface ResourceLoader {
-        String load(String path) throws Exception;
-    }
 
-<span class="fc" id="L34">    public static class DefaultResourceLoader implements ResourceLoader {</span>
-        @Override
-        public String load(String path) throws Exception {
-<span class="fc" id="L37">            Resource resource = new ClassPathResource(path);</span>
-<span class="fc" id="L38">            return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
+<span class="fc" id="L32">    public static class ResourceLoader {</span>
+        public String load(String path) throws IOException, IllegalArgumentException {
+            try {
+<span class="fc" id="L35">                Resource resource = new ClassPathResource(path);</span>
+<span class="fc" id="L36">                return new String(Files.readAllBytes(resource.getFile().toPath()));</span>
+<span class="nc" id="L37">            } catch (NullPointerException e) {</span>
+                // Handle NullPointerException (e.g., log an error or throw a more specific exception)
+<span class="nc" id="L39">                throw new IOException(&quot;File object is null&quot;, e);</span>
+<span class="fc" id="L40">            } catch (IOException e) {</span>
+                // Handle IOException (e.g., log an error or propagate the exception)
+<span class="fc" id="L42">                throw e;</span>
+<span class="nc" id="L43">            } catch (IllegalArgumentException e) {</span>
+                // Handle IllegalArgumentException (e.g., log an error or propagate the exception)
+<span class="nc" id="L45">                throw e;</span>
+            }
         }
+
     }
 }
 
