@@ -61,7 +61,7 @@ class WordsAPIClientTest {
         String word = "example";
         String expectedURL = "https://wordsapiv1.p.rapidapi.com/words/example";
 
-        assertEquals(expectedURL, WordsAPIClient.getWordDetailsURL(word));
+        assertEquals(expectedURL, WordsAPIClient.createWordDetailsURL(word));
     }
 
     @Test

@@ -1,9 +1,9 @@
-com/LawrenceAwe/artifact/WordsAPIResponse.class
+com/LawrenceAwe/artifact/Data/WordDefinitionData.class
 com/LawrenceAwe/artifact/WordsAPIClient.class
+com/LawrenceAwe/artifact/Data/WordsAPIResponse.class
 com/LawrenceAwe/artifact/WordsAPIParser.class
 com/LawrenceAwe/artifact/TemplateService.class
 com/LawrenceAwe/artifact/WordsAPIApplicationController.class
-com/LawrenceAwe/artifact/WordDefinitionData.class
 com/LawrenceAwe/artifact/WordsAPIClient$WordsAPIClientConfig.class
 com/LawrenceAwe/artifact/WordsAPIApplication.class
 com/LawrenceAwe/artifact/TemplateService$ResourceLoader.class

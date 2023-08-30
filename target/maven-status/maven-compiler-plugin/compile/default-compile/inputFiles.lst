@@ -1,7 +1,7 @@
 /Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/WordsAPIApplicationController.java
-/Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/WordsAPIResponse.java
 /Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/WordsAPIApplication.java
+/Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/Data/WordDefinitionData.java
 /Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/WordsAPIParser.java
 /Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/TemplateService.java
-/Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/WordDefinitionData.java
+/Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/Data/WordsAPIResponse.java
 /Users/lawrenceawe/Software Institute/artifact/src/main/java/com/LawrenceAwe/artifact/WordsAPIClient.java
