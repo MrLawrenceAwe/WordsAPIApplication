@@ -49,15 +49,25 @@ public class WordsAPIApplicationController {
     }
 
     public static String toTitleCase(String string) {
-        String[] arr = string.split(" ");
+        String[] words = string.split(" ");
         StringBuilder stringBuilder = new StringBuilder();
-        for (String s : arr) {
-            if (!s.isEmpty()) {
-                stringBuilder.append(Character.toUpperCase(s.charAt(0)))
-                        .append(s.substring(1).toLowerCase())
-                        .append(" ");
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                String[] subWords = word.split("-");
+                for (String subWord : subWords) {
+                    if (!subWord.isEmpty()) {
+                        stringBuilder.append(Character.toUpperCase(subWord.charAt(0)))
+                                .append(subWord.substring(1).toLowerCase());
+                        if (!subWord.equals(subWords[subWords.length - 1])) {
+                            stringBuilder.append("-");
+                        }
+                    }
+                }
+                stringBuilder.append(" ");
             }
         }
+
         return stringBuilder.toString().trim();
     }
 
