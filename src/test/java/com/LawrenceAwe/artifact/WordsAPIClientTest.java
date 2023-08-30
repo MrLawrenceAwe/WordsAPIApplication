@@ -35,7 +35,7 @@ public class WordsAPIClientTest {
     }
 
     @Test
-    public void testFetchWordDetails_Successful() throws Exception {
+    void testFetchWordDetails_Successful() throws Exception {
         String expectedResponse = "{\"word\":\"example\"}";
         when(mockHttpClient.newCall((Request) any())).thenReturn(mockCall);
         when(mockCall.execute()).thenReturn(mockResponse);
@@ -47,7 +47,7 @@ public class WordsAPIClientTest {
     }
 
     @Test
-    public void testFetchWordDetails_ExceptionThrown() throws Exception {
+    void testFetchWordDetails_ExceptionThrown() throws Exception {
         when(mockHttpClient.newCall((Request) any())).thenReturn(mockCall);
         when(mockCall.execute()).thenThrow(new IOException("Failed to fetch word"));
 
@@ -57,7 +57,7 @@ public class WordsAPIClientTest {
     }
 
     @Test
-    public void testGetWordDetailsURL() {
+    void testGetWordDetailsURL() {
         String word = "example";
         String expectedURL = "https://wordsapiv1.p.rapidapi.com/words/example";
 
@@ -65,7 +65,7 @@ public class WordsAPIClientTest {
     }
 
     @Test
-    public void testOkHttpClient() {
+    void testOkHttpClient() {
         OkHttpClient okHttpClient = new WordsAPIClient.WordsAPIClientConfig().okHttpClient();
         Assertions.assertNotNull(okHttpClient);
     }

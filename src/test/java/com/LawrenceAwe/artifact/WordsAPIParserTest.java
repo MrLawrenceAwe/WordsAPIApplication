@@ -14,13 +14,13 @@ public class WordsAPIParserTest {
     private ObjectMapper mockMapper;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockMapper = Mockito.mock(ObjectMapper.class);
         parser = new WordsAPIParser(mockMapper);
     }
 
     @Test
-    public void testParseResponse() throws Exception {
+    void testParseResponse() throws Exception {
         // Given
         String responseBody = "some fake response body";
         WordsAPIResponse expectedResponse = new WordsAPIResponse();

@@ -18,14 +18,14 @@ class TemplateServiceTest {
     private TemplateService templateService;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockJinjava = Mockito.mock(Jinjava.class);
         mockResourceLoader = Mockito.mock(TemplateService.ResourceLoader.class);
         templateService = new TemplateService(mockJinjava, mockResourceLoader);
     }
 
     @Test
-     void testRenderTemplate() throws Exception {
+    void testRenderTemplate() throws Exception {
         // Given
         String path = "templatePath";
         Map<String, Object> contextMap = new HashMap<>();
@@ -67,7 +67,7 @@ class TemplateServiceTest {
 
     @Test
     void testDefaultResourceLoader_loadValidPath() throws Exception {
-        TemplateService.DefaultResourceLoader loader = new TemplateService.DefaultResourceLoader();
+        TemplateService.ResourceLoader loader = new TemplateService.ResourceLoader();
         String templateContent = loader.load("templates/test.txt");
         assertNotNull(templateContent);
         assertFalse(templateContent.isEmpty());
@@ -75,7 +75,7 @@ class TemplateServiceTest {
 
     @Test
     void testDefaultResourceLoader_loadInvalidPath() {
-        TemplateService.DefaultResourceLoader loader = new TemplateService.DefaultResourceLoader();
+        TemplateService.ResourceLoader loader = new TemplateService.ResourceLoader();
 
         assertThrows(Exception.class, () -> {
             loader.load("invalid/path.txt");

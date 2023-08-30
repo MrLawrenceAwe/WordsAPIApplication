@@ -42,21 +42,39 @@ public class WordsAPIApplicationController {
 
     private Map<String, Object> createContextMapForWordPage(String word, WordsAPIResponse wordDetails) {
         Map<String, Object> contextMap = new HashMap<>();
-        String wordInTitleCase = Utils.toTitleCase(word);
+        String wordInTitleCase = toTitleCase(word);
         contextMap.put("word", wordInTitleCase);
         contextMap.put("results", wordDetails.getResults());
         return contextMap;
     }
 
-    public static String sanitizeUserWordInput(String word) throws Exception {
-        if (word == null) throw new Exception("Word input is null", null);
+    public static String toTitleCase(String string) {
+        String[] arr = string.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String s : arr) {
+            if (!s.isEmpty()) {
+                stringBuilder.append(Character.toUpperCase(s.charAt(0)))
+                        .append(s.substring(1).toLowerCase())
+                        .append(" ");
+            }
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    public static String sanitizeUserWordInput(String word) {
+        if (word == null) {
+            throw new IllegalArgumentException("Word input should not be null");
+        }
 
         word = word.trim();
 
-        if (word.length() > 50) word = word.substring(0, 50);
+        if (word.length() > 50) {
+            word = word.substring(0, 50);
+        }
 
         word = word.replaceAll("[<>\";/]", "");
 
         return word;
     }
+
 }
