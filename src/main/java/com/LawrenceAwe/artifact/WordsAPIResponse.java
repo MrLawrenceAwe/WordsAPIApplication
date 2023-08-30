@@ -5,22 +5,13 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WordsAPIResponse {
-    private String word;
-    private List<WordDetails> results;
+    private List<WordDefinitionData> results;
 
-    public String getWord() {
-        return word;
-    }
-
-    public List<WordDetails> getResults() {
+    public List<WordDefinitionData> getResults() {
         return results;
     }
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public void setResults(List<WordDetails> results) {
+    public void setResults(List<WordDefinitionData> results) {
         this.results = results;
     }
 }
