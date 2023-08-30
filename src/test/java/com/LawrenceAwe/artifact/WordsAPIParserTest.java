@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WordsAPIParserTest {
+class WordsAPIParserTest {
 
     private WordsAPIParser parser;
     private ObjectMapper mockMapper;

@@ -29,7 +29,7 @@ public class WordsAPIClientTest {
     private Response mockResponse;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         client = new WordsAPIClient(mockHttpClient);
     }
