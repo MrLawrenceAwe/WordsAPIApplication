@@ -38,7 +38,6 @@ public class TemplateService {
             }
             return new String(Files.readAllBytes(resource.getFile().toPath()));
         }
-
     }
 }
 

@@ -1,5 +1,6 @@
 package com.LawrenceAwe.artifact;
 
+import com.LawrenceAwe.artifact.Data.WordsAPIResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

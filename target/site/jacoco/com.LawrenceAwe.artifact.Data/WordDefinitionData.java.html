@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WordDefinitionData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">WordsAPIProject</a> &gt; <a href="index.source.html" class="el_package">com.LawrenceAwe.artifact.Data</a> &gt; <span class="el_source">WordDefinitionData.java</span></div><h1>WordDefinitionData.java</h1><pre class="source lang-java linenums">package com.LawrenceAwe.artifact.Data;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+<span class="nc" id="L8">public class WordDefinitionData {</span>
+    private String definition;
+    private List&lt;String&gt; synonyms;
+    private List&lt;String&gt; antonyms;
+
+    public String getDefinition() {
+<span class="nc" id="L14">        return definition;</span>
+    }
+
+    public List&lt;String&gt; getSynonyms() {
+<span class="nc" id="L18">        return synonyms;</span>
+    }
+
+    public List&lt;String&gt; getAntonyms() {
+<span class="nc" id="L22">        return antonyms;</span>
+    }
+
+    public void setDefinition(String definition) {
+<span class="nc" id="L26">        this.definition = definition;</span>
+<span class="nc" id="L27">    }</span>
+
+    public void setSynonyms(List&lt;String&gt; synonyms) {
+<span class="nc" id="L30">        this.synonyms = synonyms;</span>
+<span class="nc" id="L31">    }</span>
+
+    public void setAntonyms(List&lt;String&gt; antonyms) {
+<span class="nc" id="L34">        this.antonyms = antonyms;</span>
+<span class="nc" id="L35">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

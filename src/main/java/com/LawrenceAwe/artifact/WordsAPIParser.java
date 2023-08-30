@@ -1,5 +1,6 @@
 package com.LawrenceAwe.artifact;
 
+import com.LawrenceAwe.artifact.Data.WordsAPIResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 

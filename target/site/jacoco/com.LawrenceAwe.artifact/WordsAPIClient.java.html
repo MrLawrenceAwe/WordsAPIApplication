@@ -28,14 +28,14 @@ public class WordsAPIClient {
 
     private static Request createRequest(String word, String apiKey) {
 <span class="fc" id="L30">        return new Request.Builder()</span>
-<span class="fc" id="L31">                .url(getWordDetailsURL(word))</span>
+<span class="fc" id="L31">                .url(createWordDetailsURL(word))</span>
 <span class="fc" id="L32">                .get()</span>
 <span class="fc" id="L33">                .addHeader(&quot;X-RapidAPI-Key&quot;, apiKey)</span>
 <span class="fc" id="L34">                .addHeader(&quot;X-RapidAPI-Host&quot;, API_HOST)</span>
 <span class="fc" id="L35">                .build();</span>
     }
 
-    static String getWordDetailsURL(String word) {
+    static String createWordDetailsURL(String word) {
 <span class="fc" id="L39">        return &quot;https://wordsapiv1.p.rapidapi.com/words/&quot; + word;</span>
     }
 
