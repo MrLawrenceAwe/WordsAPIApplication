@@ -1,6 +1,5 @@
 package com.LawrenceAwe.artifact;
 
-import okhttp3.OkHttpClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,13 +54,14 @@ class WordsAPIApplicationControllerTest {
     void testWordPage() throws Exception {
         // Given
         String sampleWord = "example";
-        String sanitizedWord = WordsAPIApplicationController.sanitizeUserWordInput(sampleWord);
-        String sampleResponse = "Sample API response";
         WordsAPIResponse sampleParsedResponse = new WordsAPIResponse();
+        Map<String, Object> contextMap = new HashMap<>();
+        contextMap.put("word", "Example");
+        contextMap.put("results", sampleParsedResponse.getResults());
 
-        when(wordsAPIClient.fetchWordDetails(sanitizedWord, apiKey)).thenReturn(sampleResponse);
-        when(wordsAPIParser.parseResponse(sampleResponse)).thenReturn(sampleParsedResponse);
-        when(templateService.renderTemplate(anyString(), anyMap())).thenReturn("WordPage HTML");
+        when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenReturn("Sample API response");
+        when(wordsAPIParser.parseResponse("Sample API response")).thenReturn(sampleParsedResponse);
+        when(templateService.renderTemplate("templates/words_template.html", contextMap)).thenReturn("WordPage HTML");
 
         // When
         String result = controller.renderWordPage(sampleWord);
@@ -74,7 +74,7 @@ class WordsAPIApplicationControllerTest {
     void testWordPageWhenExceptionThrown() throws Exception {
         // Given
         String sampleWord = "example";
-        when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenThrow(new RuntimeException("API Error"));
+        when(wordsAPIClient.fetchWordDetails(sampleWord, apiKey)).thenThrow(new IllegalArgumentException("API Error"));
 
         // When, Then
         assertThrows(Exception.class, () -> controller.renderWordPage(sampleWord));
@@ -91,7 +91,7 @@ class WordsAPIApplicationControllerTest {
     @Test
     void testSanitizeUserWordInput_WithNull() {
         // Given, When, Then
-        assertThrows(Exception.class, () -> WordsAPIApplicationController.sanitizeUserWordInput(null));
+        assertThrows(IllegalArgumentException.class, () -> WordsAPIApplicationController.sanitizeUserWordInput(null));
     }
 
     @Test
@@ -133,7 +133,8 @@ class WordsAPIApplicationControllerTest {
                 Arguments.of("hello", "Hello"),
                 Arguments.of("123 hello! world", "123 Hello! World"),
                 Arguments.of(" hello", "Hello"),
-                Arguments.of("   ", "")
+                Arguments.of("   ", ""),
+                Arguments.of("hello-world  ", "Hello-World")
         );
     }
 }

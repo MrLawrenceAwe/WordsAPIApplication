@@ -35,8 +35,8 @@ public class WordsAPIApplicationController {
 <span class="fc" id="L35">            WordsAPIResponse wordDetails = wordsAPIParser.parseResponse(response);</span>
 <span class="fc" id="L36">            Map&lt;String, Object&gt; contextMap = createContextMapForWordPage(word, wordDetails);</span>
 <span class="fc" id="L37">            return templateService.renderTemplate(&quot;templates/words_template.html&quot;, contextMap);</span>
-<span class="nc" id="L38">        } catch (IllegalArgumentException e) {</span>
-<span class="nc" id="L39">            throw new Exception(&quot;Failed to render Word Page: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L38">        } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L39">            throw new Exception(&quot;Failed to render Word Page: &quot; + e.getMessage(), e);</span>
         }
     }
 
@@ -59,8 +59,8 @@ public class WordsAPIApplicationController {
 <span class="pc bpc" id="L59" title="1 of 2 branches missed.">                    if (!subWord.isEmpty()) {</span>
 <span class="fc" id="L60">                        stringBuilder.append(Character.toUpperCase(subWord.charAt(0)))</span>
 <span class="fc" id="L61">                                .append(subWord.substring(1).toLowerCase());</span>
-<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                        if (!subWord.equals(subWords[subWords.length - 1])) {</span>
-<span class="nc" id="L63">                            stringBuilder.append(&quot;-&quot;);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                        if (!subWord.equals(subWords[subWords.length - 1])) {</span>
+<span class="fc" id="L63">                            stringBuilder.append(&quot;-&quot;);</span>
                         }
                     }
                 }
