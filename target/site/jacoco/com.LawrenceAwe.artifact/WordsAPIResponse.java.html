@@ -5,24 +5,15 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 <span class="fc" id="L7">public class WordsAPIResponse {</span>
-    private String word;
-    private List&lt;WordDetails&gt; results;
+    private List&lt;WordDefinitionData&gt; results;
 
-    public String getWord() {
-<span class="nc" id="L12">        return word;</span>
+    public List&lt;WordDefinitionData&gt; getResults() {
+<span class="fc" id="L11">        return results;</span>
     }
 
-    public List&lt;WordDetails&gt; getResults() {
-<span class="fc" id="L16">        return results;</span>
-    }
-
-    public void setWord(String word) {
-<span class="nc" id="L20">        this.word = word;</span>
-<span class="nc" id="L21">    }</span>
-
-    public void setResults(List&lt;WordDetails&gt; results) {
-<span class="nc" id="L24">        this.results = results;</span>
-<span class="nc" id="L25">    }</span>
+    public void setResults(List&lt;WordDefinitionData&gt; results) {
+<span class="nc" id="L15">        this.results = results;</span>
+<span class="nc" id="L16">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
