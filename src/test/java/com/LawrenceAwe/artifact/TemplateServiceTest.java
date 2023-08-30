@@ -54,9 +54,9 @@ class TemplateServiceTest {
     @Test
     void testResourceLoader_NullPointerException() throws Exception {
         TemplateService.ResourceLoader loader = new TemplateService.ResourceLoader();
-
-        assertThrows(IOException.class, () -> loader.load("nonexistent/path.txt"));
+        assertEquals("File object is null", assertThrows(IOException.class, () -> loader.load("nonexistent/path.txt")).getMessage());
     }
+
 
     @Test
     void testDefaultConstructor() {
@@ -92,4 +92,5 @@ class TemplateServiceTest {
 
         assertEquals("mocked template content", rendered);
     }
+
 }
