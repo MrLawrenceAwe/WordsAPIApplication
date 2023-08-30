@@ -7,12 +7,12 @@ import org.mockito.Mockito;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.IOException;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TemplateServiceTest {
+
     private Jinjava mockJinjava;
     private TemplateService.ResourceLoader mockResourceLoader;
     private TemplateService templateService;
@@ -26,7 +26,6 @@ class TemplateServiceTest {
 
     @Test
     void testRenderTemplate() throws Exception {
-        // Given
         String path = "templatePath";
         Map<String, Object> contextMap = new HashMap<>();
         contextMap.put("key", "value");
@@ -34,29 +33,29 @@ class TemplateServiceTest {
         String loadedTemplate = "Hello, {{ key }}!";
         String expectedRenderedTemplate = "Hello, value!";
 
-        when(mockResourceLoader.load(path)).thenReturn(loadedTemplate);
-        when(mockJinjava.render(loadedTemplate, contextMap)).thenReturn(expectedRenderedTemplate);
+        Mockito.when(mockResourceLoader.load(path)).thenReturn(loadedTemplate);
+        Mockito.when(mockJinjava.render(loadedTemplate, contextMap)).thenReturn(expectedRenderedTemplate);
 
-        // When
         String result = templateService.renderTemplate(path, contextMap);
 
-        // Then
         assertEquals(expectedRenderedTemplate, result);
     }
 
     @Test
-     void testRenderTemplateWithException() throws Exception {
-        // Given
+    void testRenderTemplate_IOException() throws Exception {
         String path = "templatePath";
         Map<String, Object> contextMap = new HashMap<>();
-        when(mockResourceLoader.load(path)).thenThrow(new RuntimeException("Loading error"));
 
-        // When
-        try {
-            templateService.renderTemplate(path, contextMap);
-        } catch (RuntimeException e) { // Then
-            assertEquals("Loading error", e.getMessage());
-        }
+        Mockito.when(mockResourceLoader.load(path)).thenThrow(new IOException("IO error"));
+
+        assertThrows(IOException.class, () -> templateService.renderTemplate(path, contextMap));
+    }
+
+    @Test
+    void testResourceLoader_NullPointerException() throws Exception {
+        TemplateService.ResourceLoader loader = new TemplateService.ResourceLoader();
+
+        assertThrows(IOException.class, () -> loader.load("nonexistent/path.txt"));
     }
 
     @Test
@@ -69,6 +68,7 @@ class TemplateServiceTest {
     void testDefaultResourceLoader_loadValidPath() throws Exception {
         TemplateService.ResourceLoader loader = new TemplateService.ResourceLoader();
         String templateContent = loader.load("templates/test.txt");
+
         assertNotNull(templateContent);
         assertFalse(templateContent.isEmpty());
     }
@@ -77,15 +77,13 @@ class TemplateServiceTest {
     void testDefaultResourceLoader_loadInvalidPath() {
         TemplateService.ResourceLoader loader = new TemplateService.ResourceLoader();
 
-        assertThrows(Exception.class, () -> {
-            loader.load("invalid/path.txt");
-        });
+        assertThrows(IOException.class, () -> loader.load("invalid/path.txt"));
     }
 
     @Test
     void testCustomResourceLoaderIntegration() throws Exception {
         TemplateService.ResourceLoader mockLoader = Mockito.mock(TemplateService.ResourceLoader.class);
-        when(mockLoader.load("testPath")).thenReturn("mocked template content");
+        Mockito.when(mockLoader.load("testPath")).thenReturn("mocked template content");
 
         Jinjava jinjava = new Jinjava();
         TemplateService service = new TemplateService(jinjava, mockLoader);
@@ -94,5 +92,4 @@ class TemplateServiceTest {
 
         assertEquals("mocked template content", rendered);
     }
-
 }

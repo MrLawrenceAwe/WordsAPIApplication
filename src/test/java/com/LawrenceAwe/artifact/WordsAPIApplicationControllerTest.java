@@ -81,7 +81,7 @@ class WordsAPIApplicationControllerTest {
     }
 
     @Test
-    void testSanitizeUserWordInput_WithInvalidCharacters() throws Exception {
+    void testSanitizeUserWordInput_WithInvalidCharacters()  {
         // When
         String sanitizedWord = WordsAPIApplicationController.sanitizeUserWordInput("invalid<>word");
         // Then
@@ -95,7 +95,7 @@ class WordsAPIApplicationControllerTest {
     }
 
     @Test
-    void testSanitizeUserWordInput_WithOverLengthWord() throws Exception {
+    void testSanitizeUserWordInput_WithOverLengthWord() {
         // Given
         String longWord = "a".repeat(60);
         // When
@@ -105,7 +105,7 @@ class WordsAPIApplicationControllerTest {
     }
 
     @Test
-    void testSanitizeUserWordInput_ValidWord() throws Exception {
+    void testSanitizeUserWordInput_ValidWord()  {
         // Given
         String word = "example";
         // When
