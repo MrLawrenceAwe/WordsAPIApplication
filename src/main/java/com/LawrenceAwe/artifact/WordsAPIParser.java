@@ -12,7 +12,7 @@ public class WordsAPIParser {
         this.mapper = mapper;
     }
 
-    public WordsAPIResponse parseResponse(String responseBody) throws Exception {
-        return mapper.readValue(responseBody, WordsAPIResponse.class);
+    public WordsAPIResponse parseResponse(String rawResponseBody) throws Exception {
+        return mapper.readValue(rawResponseBody, WordsAPIResponse.class);
     }
 }
