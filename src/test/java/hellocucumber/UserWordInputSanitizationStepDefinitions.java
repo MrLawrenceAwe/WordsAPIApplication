@@ -30,8 +30,8 @@ public class UserWordInputSanitizationStepDefinitions {
         }
     }
 
-    @Then("^a WordAPIException should be thrown with message \"([^\"]*)\"$")
-    public void aWordAPIExceptionShouldBeThrown(String message) {
+    @Then("^a IllegalArgumentException should be thrown with message \"([^\"]*)\"$")
+    public void aIllegalArgumentExceptionShouldBeThrown(String message) {
         assertNotNull(exception);
         assertEquals(message, exception.getMessage());
     }

@@ -3,7 +3,7 @@ Feature: User Word Input Sanitization
   Scenario: Null word input
     Given a null word input
     When the sanitizeUserWordInput method is called
-    Then a WordAPIException should be thrown with message "Word input is null"
+    Then a IllegalArgumentException should be thrown with message "Word input should not be null"
 
   Scenario: Trimming whitespace from word input
     Given a word input "   sample   "
