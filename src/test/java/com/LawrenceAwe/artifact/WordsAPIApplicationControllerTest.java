@@ -134,7 +134,8 @@ class WordsAPIApplicationControllerTest {
                 Arguments.of("123 hello! world", "123 Hello! World"),
                 Arguments.of(" hello", "Hello"),
                 Arguments.of("   ", ""),
-                Arguments.of("hello-world  ", "Hello-World")
+                Arguments.of("hello-world  ", "Hello-World"),
+                Arguments.of(null, null)
         );
     }
 }
