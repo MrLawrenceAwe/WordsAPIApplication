@@ -35,8 +35,8 @@ public class WordsAPIApplicationController {
 <span class="fc" id="L35">            WordsAPIResponse wordDetails = wordsAPIParser.parseResponse(response);</span>
 <span class="fc" id="L36">            Map&lt;String, Object&gt; contextMap = createContextMapForWordPage(word, wordDetails);</span>
 <span class="fc" id="L37">            return templateService.renderTemplate(&quot;templates/words_template.html&quot;, contextMap);</span>
-<span class="fc" id="L38">        } catch (Exception e) {</span>
-<span class="fc" id="L39">            throw new Exception(&quot;Failed to fetch data from WordsAPI: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L38">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L39">            throw new Exception(&quot;Failed to render Word Page: &quot; + e.getMessage(), e);</span>
         }
     }
 
