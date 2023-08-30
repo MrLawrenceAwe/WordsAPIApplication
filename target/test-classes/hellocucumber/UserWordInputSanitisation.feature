@@ -18,7 +18,7 @@ Feature: User Word Input Sanitization
   Scenario: Word input contains harmful characters
     Given a word input "<script>alert('hello');</script>"
     When the sanitizeUserWordInput method is called
-    Then the sanitized word should not contain any of the characters in "<>\";"
+    Then the sanitized word should not contain any of the characters in "<>/\";"
 
   Scenario: Word input is valid
     Given a word input "validWord"
