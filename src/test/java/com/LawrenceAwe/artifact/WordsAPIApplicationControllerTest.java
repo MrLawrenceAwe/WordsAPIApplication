@@ -115,7 +115,7 @@ class WordsAPIApplicationControllerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideStringsForToTitleCase")
+    @MethodSource("provideStringsForToTitleCaseTest")
     void testToTitleCase(String input, String expected) {
         // When
         String actual = WordsAPIApplicationController.toTitleCase(input);
@@ -123,7 +123,7 @@ class WordsAPIApplicationControllerTest {
         assertEquals(expected, actual);
     }
 
-    private static Stream<Arguments> provideStringsForToTitleCase() {
+    private static Stream<Arguments> provideStringsForToTitleCaseTest() {
         return Stream.of(
                 Arguments.of("hello world", "Hello World"),
                 Arguments.of("hELLo WOrLD", "Hello World"),
