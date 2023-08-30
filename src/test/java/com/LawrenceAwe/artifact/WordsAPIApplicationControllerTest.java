@@ -4,11 +4,15 @@ import okhttp3.OkHttpClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -110,108 +114,26 @@ class WordsAPIApplicationControllerTest {
         assertEquals(word, result);
     }
 
-    @Test
-    void testToTitleCase_basic() {
-        // Given
-        String input = "hello world";
-        String expected = "Hello World";
+    @ParameterizedTest
+    @MethodSource("provideStringsForToTitleCase")
+    void testToTitleCase(String input, String expected) {
         // When
         String actual = WordsAPIApplicationController.toTitleCase(input);
         // Then
         assertEquals(expected, actual);
     }
 
-    @Test
-    void testToTitleCase_mixedCase() {
-        // Given
-        String input = "hELLo WOrLD";
-        String expected = "Hello World";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_singleWord() {
-        // Given
-        String input = "hello";
-        String expected = "Hello";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_emptyString() {
-        // Given
-        String input = "";
-        String expected = "";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_allUppercase() {
-        // Given
-        String input = "HELLO";
-        String expected = "Hello";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_allLowercase() {
-        // Given
-        String input = "hello";
-        String expected = "Hello";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_numbersAndSymbols() {
-        // Given
-        String input = "123 hello! world";
-        String expected = "123 Hello! World";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_startsWithSpace() {
-        // Given
-        String input = " hello";
-        String expected = "Hello";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_onlySpaces() {
-        // Given
-        String input = "   ";
-        String expected = "";
-        // When
-        String actual = WordsAPIApplicationController.toTitleCase(input);
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testToTitleCase_nullInput() {
-        // Given, When, Then
-        assertThrows(NullPointerException.class, () -> WordsAPIApplicationController.toTitleCase(null));
+    private static Stream<Arguments> provideStringsForToTitleCase() {
+        return Stream.of(
+                Arguments.of("hello world", "Hello World"),
+                Arguments.of("hELLo WOrLD", "Hello World"),
+                Arguments.of("hello", "Hello"),
+                Arguments.of("", ""),
+                Arguments.of("HELLO", "Hello"),
+                Arguments.of("hello", "Hello"),
+                Arguments.of("123 hello! world", "123 Hello! World"),
+                Arguments.of(" hello", "Hello"),
+                Arguments.of("   ", "")
+        );
     }
 }
