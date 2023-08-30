@@ -30,13 +30,15 @@ public class TemplateService {
 
     public static class ResourceLoader {
         public String load(String path) throws IOException, IllegalArgumentException {
-            try {
-                Resource resource = new ClassPathResource(path);
-                return new String(Files.readAllBytes(resource.getFile().toPath()));
-            } catch (NullPointerException e) {
-                throw new IOException("File object is null", e);
+            Resource resource = new ClassPathResource(path);
+            if (!resource.exists()) {
+                throw new IOException("File object is null");
+            } else {
+                resource.getFile();
             }
+            return new String(Files.readAllBytes(resource.getFile().toPath()));
         }
+
     }
 }
 

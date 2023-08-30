@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-WordsAPIProject,com.LawrenceAwe.artifact,TemplateService.ResourceLoader,7,16,0,0,2,3,0,2,0,2
+WordsAPIProject,com.LawrenceAwe.artifact,TemplateService.ResourceLoader,0,27,0,2,0,6,0,3,0,2
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient,0,40,0,0,0,13,0,4,0,4
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIClient.WordsAPIClientConfig,0,7,0,0,0,2,0,2,0,2
 WordsAPIProject,com.LawrenceAwe.artifact,WordsAPIResponse,11,6,0,0,5,2,3,2,3,2
