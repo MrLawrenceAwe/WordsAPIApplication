@@ -1,5 +1,7 @@
 # Words API Application
 
+[![CI](https://github.com/MrLawrenceAwe/WordsAPIApplication/actions/workflows/build.yml/badge.svg)](https://github.com/MrLawrenceAwe/WordsAPIApplication/actions/workflows/build.yml)
+
 A Spring Boot web application for looking up word definitions through the WordsAPI service on RapidAPI.
 
 ## Features
@@ -9,7 +11,7 @@ A Spring Boot web application for looking up word definitions through the WordsA
 - Input sanitisation for user-provided words.
 - Template rendering with Jinjava.
 - Unit and Cucumber tests for parsing, controller behaviour, and input sanitisation.
-- GitHub Actions workflow for Maven verification and SonarCloud analysis.
+- GitHub Actions CI for Maven verification; optional SonarCloud analysis is available manually.
 
 ## Tech Stack
 
@@ -40,3 +42,7 @@ http://localhost:8080
 ```bash
 mvn test
 ```
+
+## Continuous integration
+
+Every push and pull request runs `mvn -B verify` with Java 17. SonarCloud is an optional, manually dispatched workflow that requires a configured `SONAR_TOKEN`; external analysis is separate from build/test verification.
